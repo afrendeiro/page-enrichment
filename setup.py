@@ -48,7 +48,7 @@ setup(
             "page = page.enrichment:main",
             "page-get-test-data = page.tests.conftest:get_test_data"]
     },
-    description="Parametrics Analysis of Gene Set Enrichment.",
+    description="Parametric Analysis of Gene Set Enrichment (PAGE).",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

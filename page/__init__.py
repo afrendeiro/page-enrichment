@@ -175,3 +175,4 @@ _CONFIG = setup_config()
 # easier API
 from page.enrichment import (
     page, APIError, EnrichrAPIError, get_enrichr_libraries, get_library_genes)
+from page.tests.conftest import get_test_data

@@ -1,0 +1,4 @@
+setuptools_scm>=3.3.3
+scipy>=1.0.0
+pandas>=0.25.0
+requests>=2.21.0

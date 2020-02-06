@@ -37,54 +37,12 @@ except KeyError:
     DEV = "dev" in o.decode().split("\n")[0]
 
 
-def is_internet_connected(hostname="www.google.com"):
-    import socket
-    try:
-        # see if we can resolve the host name -- tells us if there is
-        # a DNS listening
-        host = socket.gethostbyname(hostname)
-        # connect to the host -- tells us if the host is actually
-        # reachable
-        s = socket.create_connection((host, 80), 2)
-        s.close()
-        return True
-    except OSError:
-        pass
-    return False
-
-
-def has_module(module):
-    import importlib
-    try:
-        importlib.import_module(module)
-        return True
-    except ModuleNotFoundError:
-        return False
-
-
-def file_exists(file):
-    from page.utils import get_this_file_or_timestamped
-
-    return os.path.exists(get_this_file_or_timestamped(file))
-
-
-def file_not_empty(file):
-    from page.utils import get_this_file_or_timestamped
-
-    return os.stat(get_this_file_or_timestamped(file)).st_size > 0
-
-
 def file_exists_and_not_empty(file):
-    from page.utils import get_this_file_or_timestamped
-
-    f = get_this_file_or_timestamped(file)
-
-    return os.path.exists(f) and (
-        os.stat(f).st_size > 0)
+    return os.path.exists(file) and (
+        os.stat(file).st_size > 0)
 
 
-@pytest.fixture
-def diff_expression_vector():
+def get_diff_expression_vector():
     url = (
         "https://amp.pharm.mssm.edu/Harmonizome/"
         "api/1.0/gene_set/"
@@ -98,3 +56,21 @@ def diff_expression_vector():
     for gene in resp.json()['associations']:
         vect[gene['gene']['symbol']] = gene['standardizedValue']
     return pd.Series(vect).sort_values()
+
+
+@pytest.fixture
+def diff_expression_vector():
+    return get_diff_expression_vector()
+
+
+def get_test_data(cli: str = None) -> int:
+    from argparse import ArgumentParser
+
+    parser = ArgumentParser()
+    _help = (
+        "Output CSV file with fold-changes.")
+    parser.add_argument(dest="output_file", help=_help)
+    args = parser.parse_args(cli)
+
+    vect = get_diff_expression_vector()
+    vect.to_csv(args.output_file, header=True)

@@ -173,5 +173,5 @@ _LOGGER = setup_logger()
 _CONFIG = setup_config()
 
 # easier API
-from page.page import (
+from page.enrichment import (
     page, APIError, EnrichrAPIError, get_enrichr_libraries, get_library_genes)

@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 
 
+import os
+import pandas as pd
 # import numpy as np
 import pytest
 
 from page import page
 from page import APIError
-from page.page import _get_library_genes
+from page import get_library_genes
+from .conftest import file_exists_and_not_empty
 
 
 class TestPAGE:
@@ -19,4 +22,14 @@ class TestPAGE:
 
     def test_get_wrong_gene_set(self):
         with pytest.raises(APIError):
-            _get_library_genes("WRONG_GENE_SET_NAME")
+            get_library_genes("WRONG_GENE_SET_NAME")
+
+    def test_cli(self):
+        os.system("page-get-test-data input.csv")
+        assert file_exists_and_not_empty("input.csv")
+        os.system("page -g KEGG_2016 input.csv output.csv")
+        assert file_exists_and_not_empty("output.csv")
+
+        r = pd.read_csv('output.csv', index_col=[0, 1])
+        assert r.shape == (294, 6)
+        assert r.dropna().shape == (247, 6)

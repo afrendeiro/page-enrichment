@@ -11,6 +11,8 @@ import pandas as pd
 from scipy import stats
 from joblib import Memory
 
+from page import _LOGGER, _CONFIG
+
 
 def page(
         parameter_vector: pd.Series,
@@ -36,8 +38,6 @@ def page(
     pandas.DataFrame
         Data frame with enrichment statistics for each term in each gene set library.
     """
-    from page import _CONFIG, _LOGGER
-
     if gene_set_libraries is None:
         gene_set_libraries = _CONFIG['gene_set_libraries']['enrichr']
     if isinstance(gene_set_libraries, str):
@@ -62,7 +62,7 @@ def page(
     return (
         pd.DataFrame(results, index=['μ', 'δ', 'Sm', 'm', 'Z', 'p'])
         .T
-        .sort_values(['p', 'Sm'], ascending=[True, False]))
+        .sort_values('p'))
 
 
 class APIError(Exception):
@@ -75,7 +75,6 @@ class EnrichrAPIError(APIError):
 
 @lru_cache(maxsize=32)
 def get_enrichr_libraries() -> list:
-    from page import _CONFIG
     resp = requests.get(f"{_CONFIG['base_enrichr_url']}/datasetStatistics")
     if not resp.ok:
         msg = "Could not get gene set libraries from Enrich!"
@@ -87,7 +86,6 @@ def get_enrichr_libraries() -> list:
 
 
 def _get_library_genes(lib) -> dict:
-    from page import _CONFIG
     resp = requests.get(
         f"{_CONFIG['base_enrichr_url']}/geneSetLibrary?mode=text&libraryName={lib}"
     )
@@ -115,6 +113,14 @@ def clear_memory() -> None:
 
 
 def main(cli: str = None) -> int:
+    """
+    Interface for CLI usage of PAGE.
+
+    Parameters
+    ----------
+    cli : str, optional
+        A string representing the CLI call.
+    """
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
@@ -123,23 +129,38 @@ def main(cli: str = None) -> int:
         "Two-column CSV input file for enrichment. "
         "The first column are gene names and the second the 'parameters' "
         "(e.g. fold-changes). Assumes header.")
-    parser.add_arguments(dest="input_file", help=_help)
+    parser.add_argument(dest="input_file", help=_help)
     _help = (
         "Output CSV file with enrichment results.")
-    parser.add_arguments(dest="output_file", help=_help)
+    parser.add_argument(dest="output_file", help=_help)
     _help = (
         "Enrichr gene set libraries to use, comma-delimited. "
-        "Check 'http://amp.pharm.mssm.edu/Enrichr/datasetStatistics' to see all."
-        "Defaults to the app's defaults. Can also be specified with a "
-        "configuration file placed in ~/.page.config.yaml. "
+        "Check 'http://amp.pharm.mssm.edu/Enrichr/datasetStatistics' to see all"
+        "available. Defaults to the app's defaults or to a user-specified "
+        "configuration in ~/.page.config.yaml. "
         "See  for example.")
-    parser.add_arguments(
+    parser.add_argument(
         "-g", "--gene-set-libraries", dest="gene_set_libraries", help=_help)
     args = parser.parse_args(cli)
 
-    v = pd.read_csv(args.input_file, index_col=0)
+    _LOGGER.info(f"Reading input CSV file '{args.input_file}'.")
+    v = pd.read_csv(args.input_file, index_col=0, squeeze=True)
+    _LOGGER.info(f"Found file with {v.shape[0]} genes.")
+
+    if args.gene_set_libraries is not None:
+        args.gene_set_libraries = args.gene_set_libraries.split(",")
+    else:
+        _LOGGER.debug(f"No gene set libraries given, using default.")
+        args.gene_set_libraries = _CONFIG['gene_set_libraries']['enrichr']
+    gs = '\n\t- '.join(args.gene_set_libraries)
+    _LOGGER.info(f"Using gene set libraries:\n\t- {gs}")
+
     res = page(v, args.gene_set_libraries)
+    _LOGGER.info(f"Completed.")
+
+    _LOGGER.info(f"Saving to output CSV file '{args.output_file}'.")
     res.to_csv(args.output_file)
+    return 0
 
 
 if __name__ == '__main__':

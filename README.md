@@ -9,7 +9,7 @@
 
 # Parametric Analysis of Gene Set Enrichment (PAGE)
 
-A Python implementation of the [PAGE algorithm for gene set enrichment analysis](https://doi.org/10.1186/1471-2105-6-144) that uses the gene set libraries from Enrichr[https://amp.pharm.mssm.edu/Enrichr/].
+A Python implementation of the [PAGE algorithm for gene set enrichment analysis](https://doi.org/10.1186/1471-2105-6-144) that uses the gene set libraries from [Enrichr](https://amp.pharm.mssm.edu/Enrichr/).
 
 Head to the [documentation](http://page-enrichment.readthedocs.io/) to see how to install and use.
 

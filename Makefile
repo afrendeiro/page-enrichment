@@ -9,7 +9,7 @@ install:
 
 test:
 	python -m \
-		pytest -n 3 \
+		pytest \
 		--disable-warnings \
 		--show-capture=no \
 		--cov=page \

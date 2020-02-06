@@ -1,7 +1,8 @@
 Welcome
 ^^^^^^^^
 
-``page`` is a Python library to perform Parametric Analysis of Gene Set Enrichment.
+``page`` is a Python library to perform `Parametric Analysis of Gene Set Enrichment
+<https://doi.org/10.1186/1471-2105-6-144>`_.
 
 Head to the :doc:`Installation <install>` to see installation instructions, to
 :doc:`Usage <usage>` for quick use, or have a look at the catalogue of available

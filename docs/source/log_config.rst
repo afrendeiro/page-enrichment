@@ -5,7 +5,7 @@ Configuration and logging
 
 
 Gene set libraries and configuration
-===================================
+====================================
 
 ``page`` uses gene sets from Enrichr gene set libraries.
 

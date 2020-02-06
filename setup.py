@@ -37,7 +37,7 @@ long_description = open("README.md").read()
 
 # setup
 setup(
-    name="page",
+    name="page-enrichment",
     packages=find_packages(),
     use_scm_version={
         'write_to': 'page/_version.py',

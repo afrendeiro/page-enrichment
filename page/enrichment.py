@@ -45,7 +45,7 @@ def page(
 
     Returns
     ----------
-    pandas.DataFrame
+    :obj:`~pandas.DataFrame`
         Data frame with enrichment statistics for each term in each gene set library.
     """
     if gene_set_libraries is None:
@@ -118,8 +118,14 @@ def main(cli: str = None) -> int:
 
     Parameters
     ----------
-    cli : str, optional
+    cli : :obj:`str`, optional
         A string representing the CLI call.
+
+    Returns
+    ----------
+    :obj:`int`
+        Return code of whole process.
+
     """
     from argparse import ArgumentParser
 

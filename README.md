@@ -5,7 +5,6 @@
 [![Build Status](https://travis-ci.org/afrendeiro/toolkit.svg?branch=master)](https://travis-ci.org/afrendeiro/toolkit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/afrendeiro/toolkit)
 
 # Parametric Analysis of Gene Set Enrichment (PAGE)
 

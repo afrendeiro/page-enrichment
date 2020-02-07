@@ -1,8 +1,8 @@
 
 [![Documentation status](https://readthedocs.org/projects/page-enrichment/badge/?version=latest)](http://page-enrichment.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/page.svg)](https://badge.fury.io/py/page)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/30fcafc027e64b21bf9ddfe8d7f0ff3a)](https://app.codacy.com/app/afrendeiro/toolkit?utm_source=github.com&utm_medium=referral&utm_content=afrendeiro/toolkit&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.org/afrendeiro/toolkit.svg?branch=master)](https://travis-ci.org/afrendeiro/toolkit)
+[![PyPI version](https://badge.fury.io/py/page.svg)](https://badge.fury.io/py/page-enrichment)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/065095b963964c6f8f891c38f811acf4)](https://www.codacy.com/manual/afrendeiro/page-enrichment?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=afrendeiro/page-enrichment&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/afrendeiro/page-enrichment.svg?branch=master)](https://travis-ci.org/afrendeiro/page-enrichment)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 

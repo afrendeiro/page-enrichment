@@ -70,9 +70,11 @@ def page(
             # Get P-values
             p = stats.norm.sf(abs(Z)) * 2
             results[(lib, gs)] = [μ, δ, Sm, m, Z, p]
-    return pd.DataFrame(
-        results, index=["μ", "δ", "Sm", "m", "Z", "p"]
-    ).T.sort_values("p")
+    return (
+        pd.DataFrame(results, index=["μ", "δ", "Sm", "m", "Z", "p"])
+        .T.sort_values("p")
+        .rename_axis(index=["database", "term"])
+    )
 
 
 @lru_cache(maxsize=32)

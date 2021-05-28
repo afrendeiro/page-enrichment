@@ -41,9 +41,9 @@ extensions = [
     "sphinx.ext.coverage",
     "sphinx.ext.viewcode",
     # "numpydoc",
-    'sphinx.ext.napoleon',
+    "sphinx.ext.napoleon",
     "sphinx_issues",
-    'sphinxarg.ext',  # for CLI parsing of arguments
+    "sphinxarg.ext",  # for CLI parsing of arguments
     # 'sphinx_autodoc_typehints' <- this would be handy when whole codebase has typehinting
     # "sphinxcontrib.jupyter", <- this could be useful to make jupyter NBs
 ]
@@ -75,9 +75,9 @@ copyright = u"2020, Andre Rendeiro"
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-release = get_distribution('page').version
+release = get_distribution("page-enrichment").version
 # for example take major/minor
-version = '.'.join(release.split('.')[:3])
+version = ".".join(release.split(".")[:3])
 
 # The full version, including alpha/beta/rc tags.
 release = version
@@ -264,9 +264,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ("index", "page", u"page Documentation", [u"Andre Rendeiro"], 1)
-]
+man_pages = [("index", "page", u"page Documentation", [u"Andre Rendeiro"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -374,7 +372,7 @@ epub_exclude_files = ["search.html"]
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/3', None),
-    'urllib3': ('http://urllib3.readthedocs.org/en/latest', None),
-    'pandas': ('http://pandas.pydata.org/pandas-docs/stable/', None),
+    "python": ("http://docs.python.org/3", None),
+    "urllib3": ("http://urllib3.readthedocs.org/en/latest", None),
+    "pandas": ("http://pandas.pydata.org/pandas-docs/stable/", None),
 }

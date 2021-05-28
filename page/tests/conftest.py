@@ -2,12 +2,11 @@
 
 
 import os
-import requests
 
-import pandas as pd
 import pytest
+import pandas as pd
 
-from page import APIError
+from page.tests import get_diff_expression_vector
 
 
 # Environment-specific
@@ -37,39 +36,10 @@ except KeyError:
     DEV = "dev" in o.decode().split("\n")[0]
 
 
-def file_exists_and_not_empty(file):
+def file_exists_and_not_empty(file: str) -> bool:
     return os.path.exists(file) and (os.stat(file).st_size > 0)
-
-
-def get_diff_expression_vector():
-    url = (
-        "https://amp.pharm.mssm.edu/Harmonizome/"
-        "api/1.0/gene_set/"
-        "Androgen+insensitivity+syndrome_Fibroblast_GSE3871/"
-        "GEO+Signatures+of+Differentially+Expressed+Genes+for+Diseases"
-    )
-    resp = requests.get(url)
-    if not resp.ok:
-        raise APIError("Could not get test differential expression vector.")
-
-    vect = dict()
-    for gene in resp.json()["associations"]:
-        vect[gene["gene"]["symbol"]] = gene["standardizedValue"]
-    return pd.Series(vect).sort_values()
 
 
 @pytest.fixture
 def diff_expression_vector():
     return get_diff_expression_vector()
-
-
-def get_test_data(cli: str = None) -> int:
-    from argparse import ArgumentParser
-
-    parser = ArgumentParser()
-    _help = "Output CSV file with fold-changes."
-    parser.add_argument(dest="output_file", help=_help)
-    args = parser.parse_args(cli)
-
-    vect = get_diff_expression_vector()
-    vect.to_csv(args.output_file, header=True)

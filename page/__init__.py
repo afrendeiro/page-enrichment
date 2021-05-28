@@ -62,9 +62,7 @@ def setup_logger(level="INFO", logfile=None):
     _LOGGER.addHandler(ch)
 
     _LOGGER.debug(
-        "This is page (http://page-enrichment.rtfd.io), version: {}".format(
-            __version__
-        )
+        "This is page (http://page-enrichment.rtfd.io), version: {}".format(__version__)
     )
     return _LOGGER
 
@@ -99,9 +97,7 @@ def setup_config(custom_yaml_config=None):
     import yaml
 
     default_config_path = "config/default.yaml"
-    default_config_path = pkg_resources.resource_filename(
-        __name__, default_config_path
-    )
+    default_config_path = pkg_resources.resource_filename(__name__, default_config_path)
     _LOGGER.debug(
         "Reading default configuration file distributed"
         " with package from '{}'.".format(default_config_path)
@@ -111,15 +107,11 @@ def setup_config(custom_yaml_config=None):
         _LOGGER.debug("Default config: {}".format(_CONFIG))
     except IOError:
         _LOGGER.error(
-            "Couldn't read configuration file from '{}'.".format(
-                default_config_path
-            )
+            "Couldn't read configuration file from '{}'.".format(default_config_path)
         )
         _CONFIG = dict()
 
-    user_config_path = os.path.join(
-        os.path.expanduser("~"), ".page.config.yaml"
-    )
+    user_config_path = os.path.join(os.path.expanduser("~"), ".page.config.yaml")
     if os.path.exists(user_config_path):
         # Read up
         _LOGGER.debug("Found custom user config: {}".format(user_config_path))
@@ -188,4 +180,4 @@ from page.enrichment import (
     get_enrichr_libraries,
     get_library_genes,
 )
-from page.tests.conftest import get_test_data
+from page.tests import get_diff_expression_vector as get_test_data

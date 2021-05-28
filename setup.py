@@ -25,12 +25,9 @@ except ImportError:
         extra["dependencies"] = ["argparse"]
 
 # Requirements
-requirements = parse_requirements(
-    "requirements/requirements.txt")
-requirements_test = parse_requirements(
-    "requirements/requirements.test.txt")
-requirements_docs = parse_requirements(
-    "requirements/requirements.docs.txt")
+requirements = parse_requirements("requirements/requirements.txt")
+requirements_test = parse_requirements("requirements/requirements.test.txt")
+requirements_docs = parse_requirements("requirements/requirements.docs.txt")
 
 long_description = open("README.md").read()
 
@@ -40,21 +37,21 @@ setup(
     name="page-enrichment",
     packages=find_packages(),
     use_scm_version={
-        'write_to': 'page/_version.py',
-        'write_to_template': '__version__ = "{version}"\n'
+        "write_to": "page/_version.py",
+        "write_to_template": '__version__ = "{version}"\n',
     },
     entry_points={
         "console_scripts": [
             "page = page.enrichment:main",
-            "page-get-test-data = page.tests.conftest:get_test_data"]
+            "page-get-test-data = page.tests:get_test_data",
+        ]
     },
     description="Parametric Analysis of Gene Set Enrichment (PAGE).",
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 3 - Alpha",
-        "License :: OSI Approved :: "
-        "GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: " "GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 2.7",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
     ],
@@ -68,12 +65,10 @@ setup(
     author=u"Andre Rendeiro",
     author_email="andre.rendeiro@pm.me",
     license="GPL3",
-    setup_requires=['setuptools_scm'],
+    setup_requires=["setuptools_scm"],
     install_requires=requirements,
     tests_require=requirements_test,
-    extras_require={
-        "testing": requirements_test,
-        "docs": requirements_docs},
+    extras_require={"testing": requirements_test, "docs": requirements_docs},
     package_data={"page": ["config/*.yaml", "templates/*.html"]},
     data_files=[
         "requirements/requirements.txt",
